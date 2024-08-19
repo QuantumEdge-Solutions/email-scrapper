@@ -142,7 +142,7 @@ def process_emails(df, email_data):
         
         # Only include rows with at least one valid email
         if filtered_emails:
-            email_records.append({'website': website, 'emails': filtered_emails})
+            email_records.append({'Website': website, 'emails': filtered_emails})
     
     # If no valid email records, return the original DataFrame unchanged
     if not email_records:
@@ -166,7 +166,7 @@ def process_emails(df, email_data):
     email_df = pd.concat([email_df, email_expanded], axis=1)
 
     # Merge with the original DataFrame
-    combined_df = df.set_index('website').join(email_df.set_index('website'), how='left').reset_index()
+    combined_df = df.set_index('Website').join(email_df.set_index('Website'), how='left').reset_index()
 
     # Remove rows where no emails were found
     combined_df = combined_df.dropna(subset=email_columns, how='all')
@@ -179,9 +179,13 @@ def write_emails_to_csv(df, output_file_path):
     df.to_csv(output_file_path, index=False)
 
 # Main script execution
-websites_txt_path = 'H:/upwork/output_parts/part_1_http_https_websites.txt'
-additional_csv_path = 'H:/upwork/output_parts/part_1_filtered_data.csv'
-output_csv_path = 'H:/upwork/output_parts/part_1_website_emails.csv'
+# Path to the text file containing websites, created by running the filter_csv.py script
+websites_txt_path = 'H:/upwork/output_parts/part_3_http_https_websites.txt'  
+# Path to the CSV file with filtered data, also created by running the filter_csv.py script
+additional_csv_path = 'H:/upwork/output_parts/part_3_filtered_data.csv'  
+# Path to the final output CSV file that will store the leads (website emails) collected during the process
+output_csv_path = 'H:/upwork/output_parts/part_3_website_emails.csv' 
+
 
 # Read website URLs from text file
 urls = read_websites_from_txt(websites_txt_path)

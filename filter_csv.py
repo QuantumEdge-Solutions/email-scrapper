@@ -62,9 +62,11 @@ def extract_http_https_websites(file_path, output_csv_file, output_text_file):
 
     return http_https_websites
 
-# Usage
-file_path = 'H:/upwork/ca_output/part_3.csv'
-output_csv_file = 'H:/upwork/ca_output/part_1_filtered_data.csv'
-output_text_file = 'H:/upwork/ca_output/part_1_http_https_websites.txt'
+# Path to the input CSV file that contains the websites to process
+file_path = 'H:/upwork/ca_output/part_3.csv'  
+# Path to the output CSV file where filtered data will be saved for use in the Selenium script
+output_csv_file = 'H:/upwork/ca_output/part_3_filtered_data.csv'
+# Path to the output text file that will store all the websites found in the input CSV
+output_text_file = 'H:/upwork/ca_output/part_3_http_https_websites.txt' 
 http_https_websites_data = extract_http_https_websites(file_path, output_csv_file, output_text_file)
 # print(http_https_websites_data)
