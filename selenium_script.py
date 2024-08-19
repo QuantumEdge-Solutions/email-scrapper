@@ -10,6 +10,7 @@ from selenium.common.exceptions import TimeoutException
 from urllib.parse import urlparse, urljoin
 from requests.exceptions import ConnectTimeout, ReadTimeout, RequestException
 import time
+import argparse
 
 def get_domain(url):
     parsed_url = urlparse(url)
@@ -179,25 +180,33 @@ def write_emails_to_csv(df, output_file_path):
     df.to_csv(output_file_path, index=False)
 
 # Main script execution
-# Path to the text file containing websites, created by running the filter_csv.py script
-websites_txt_path = 'H:/upwork/output_parts/part_3_http_https_websites.txt'  
-# Path to the CSV file with filtered data, also created by running the filter_csv.py script
-additional_csv_path = 'H:/upwork/output_parts/part_3_filtered_data.csv'  
-# Path to the final output CSV file that will store the leads (website emails) collected during the process
-output_csv_path = 'H:/upwork/output_parts/part_3_website_emails.csv' 
+if __name__ == "__main__":
+    # Set up argument parsing
+    parser = argparse.ArgumentParser(description="Extract and filter HTTP/HTTPS websites from a CSV file.")
+    parser.add_argument('file_name', type=str, help="The name of the CSV file to process (without extension).")
 
+    args = parser.parse_args()
+    file_name = args.file_name
 
-# Read website URLs from text file
-urls = read_websites_from_txt(websites_txt_path)
+    # Construct paths based on the file_name argument
+    # Path to the text file containing websites, created by running the filter_csv.py script
+    websites_txt_path = f'{file_name}_websites.txt'
+    # Path to the CSV file with filtered data, also created by running the filter_csv.py script
+    additional_csv_path = f'{file_name}_filtered_data.csv'
+    # Path to the final output CSV file that will store the leads (website emails) collected during the process
+    output_csv_path = f'{file_name}_website_emails.txt'
 
-# Read the original DataFrame from CSV
-df = read_data_from_csv(additional_csv_path)
+    # Read website URLs from text file
+    urls = read_websites_from_txt(websites_txt_path)
 
-# Run scraper
-email_data = run_scraper(urls, max_emails=4)
+    # Read the original DataFrame from CSV
+    df = read_data_from_csv(additional_csv_path)
 
-# Process email data
-combined_df = process_emails(df, email_data)
+    # Run scraper
+    email_data = run_scraper(urls, max_emails=4)
 
-# Write results to CSV
-write_emails_to_csv(combined_df, output_csv_path)
+    # Process email data
+    combined_df = process_emails(df, email_data)
+
+    # Write results to CSV
+    write_emails_to_csv(combined_df, output_csv_path)
