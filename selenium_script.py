@@ -194,7 +194,7 @@ if __name__ == "__main__":
     # Path to the CSV file with filtered data, also created by running the filter_csv.py script
     additional_csv_path = f'{file_name}_filtered_data.csv'
     # Path to the final output CSV file that will store the leads (website emails) collected during the process
-    output_csv_path = f'{file_name}_website_emails.txt'
+    output_csv_path = f'{file_name}_website_emails.csv'
 
     # Read website URLs from text file
     urls = read_websites_from_txt(websites_txt_path)
