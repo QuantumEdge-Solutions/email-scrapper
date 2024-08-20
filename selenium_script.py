@@ -89,7 +89,7 @@ def scrape_url(url, max_emails=4):
             if not emails:
                 options = Options()
                 options.headless = True
-                driver = webdriver.Chrome(service=Service("H:/upwork/chromedriver-win64/chromedriver-win64/chromedriver.exe"), options=options)
+                driver = webdriver.Chrome(service=Service("chromedriver.exe"), options=options)
                 try:
                     for path in ['/contact-us', '/contact', '/about-us', '/about']:
                         page_url = urljoin(domain, path)
