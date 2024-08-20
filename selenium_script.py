@@ -89,7 +89,7 @@ def scrape_url(url, max_emails=4):
             if not emails:
                 options = Options()
                 options.headless = True
-                driver = webdriver.Chrome(service=Service("chromedriver.exe"), options=options)
+                driver = webdriver.Chrome(service=Service("H:/upwork/chromedriver-win64/chromedriver-win64/chromedriver.exe"), options=options)
                 try:
                     for path in ['/contact-us', '/contact', '/about-us', '/about']:
                         page_url = urljoin(domain, path)
@@ -143,7 +143,7 @@ def process_emails(df, email_data):
         
         # Only include rows with at least one valid email
         if filtered_emails:
-            email_records.append({'Website': website, 'emails': filtered_emails})
+            email_records.append({'website': website, 'emails': filtered_emails})
     
     # If no valid email records, return the original DataFrame unchanged
     if not email_records:
@@ -167,7 +167,7 @@ def process_emails(df, email_data):
     email_df = pd.concat([email_df, email_expanded], axis=1)
 
     # Merge with the original DataFrame
-    combined_df = df.set_index('Website').join(email_df.set_index('Website'), how='left').reset_index()
+    combined_df = df.set_index('website').join(email_df.set_index('website'), how='left').reset_index()
 
     # Remove rows where no emails were found
     combined_df = combined_df.dropna(subset=email_columns, how='all')
@@ -194,7 +194,7 @@ if __name__ == "__main__":
     # Path to the CSV file with filtered data, also created by running the filter_csv.py script
     additional_csv_path = f'{file_name}_filtered_data.csv'
     # Path to the final output CSV file that will store the leads (website emails) collected during the process
-    output_csv_path = f'{file_name}_website_emails.txt'
+    output_csv_path = f'{file_name}_website_emails.csv'
 
     # Read website URLs from text file
     urls = read_websites_from_txt(websites_txt_path)

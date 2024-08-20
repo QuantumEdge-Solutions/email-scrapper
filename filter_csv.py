@@ -22,7 +22,7 @@ def extract_http_https_websites(file_path, output_csv_file, output_text_file):
         with open(file_path, mode='r', newline='', encoding='utf-8', errors='replace') as file:
             reader = csv.DictReader(file)
             for row in reader:
-                website = row.get('Website', '').strip()
+                website = row.get('website', '').strip()
                 # print(website)
 
                 # Ignore rows with empty or None website fields
@@ -35,14 +35,14 @@ def extract_http_https_websites(file_path, output_csv_file, output_text_file):
                 # Exclude domains containing any of the excluded keywords
                 if not any(keyword in domain for keyword in excluded_domains):
                     data = {
-                        'Business Name': row.get('Business Name', ''),
-                        'Rating': row.get('Rating', ''),
-                        'RatingCount': row.get('RatingCount', ''),
-                        # 'city': row.get('city', ''),
-                        'Address': row.get('Address', ''),
-                        'Website': domain,  # Save only the domain
-                        'Phone': row.get('Phone', ''),
-                        'Keyword': row.get('Keyword', '')
+                        'title': row.get('title', ''),
+                        'totalScore': row.get('totalScore', ''),
+                        'reviewsCount': row.get('reviewsCount', ''),
+                        'city': row.get('city', ''),
+                        'address': row.get('address', ''),
+                        'website': domain,  # Save only the domain
+                        'phone': row.get('phone', ''),
+                        'categoryName': row.get('categoryName', '')
                     }
                     data_list.append(data)
                     http_https_websites.add(domain)  # Add the domain to the set
@@ -54,7 +54,7 @@ def extract_http_https_websites(file_path, output_csv_file, output_text_file):
 
         # Write filtered data to a new CSV file
         with open(output_csv_file, mode='w', newline='', encoding='utf-8') as file:
-            fieldnames = ['Business Name', 'Rating', 'RatingCount', 'Address', 'Website', 'Phone', 'Keyword']
+            fieldnames = ['title', 'totalScore', 'reviewsCount', 'address', 'website', 'phone', 'categoryName']
             writer = csv.DictWriter(file, fieldnames=fieldnames)
             writer.writeheader()
             writer.writerows(data_list)
