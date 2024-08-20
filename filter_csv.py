@@ -54,7 +54,7 @@ def extract_http_https_websites(file_path, output_csv_file, output_text_file):
 
         # Write filtered data to a new CSV file
         with open(output_csv_file, mode='w', newline='', encoding='utf-8') as file:
-            fieldnames = ['title', 'totalScore', 'reviewsCount', 'address', 'website', 'phone', 'categoryName']
+            fieldnames = ['title', 'totalScore', 'reviewsCount', 'address', 'city', 'website', 'phone', 'categoryName']
             writer = csv.DictWriter(file, fieldnames=fieldnames)
             writer.writeheader()
             writer.writerows(data_list)
